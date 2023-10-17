@@ -1,0 +1,150 @@
+{
+    "name": "additional-dnd5e-resources",
+    "title": "Supplemental DnD5e Resources",
+    "author": "blk",
+    "description": "Supplemental classes, features, monsters, etc., that don't appear in the SRD",
+    "packs": [
+        {
+            "name": "monsters",
+            "label": "Monsters (Supplemental)",
+            "type": "Actor",
+            "system": "dnd5e",
+            "path": "packs/monsters.db",
+            "entity": "Actor",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "classes",
+            "label": "Classes (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/classes.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "journal",
+            "label": "Journal Entries (Supplemental)",
+            "type": "JournalEntry",
+            "system": "dnd5e",
+            "path": "packs/journal.db",
+            "entity": "JournalEntry",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "subclasses",
+            "label": "Subclasses (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/subclasses.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "features",
+            "label": "Features (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/features.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "feats",
+            "label": "Feats (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/feats.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "class-features",
+            "label": "Class Features (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/class-features.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "equipment",
+            "label": "Equipment (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/equipment.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "magic-items",
+            "label": "Magic Items (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/magic-items.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "spells",
+            "label": "Spells (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/spells.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "treasure",
+            "label": "Treasure (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/treasure.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "races",
+            "label": "Racial Features (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/races.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "macros",
+            "label": "Macros (Supplemental)",
+            "type": "Macro",
+            "system": "dnd5e",
+            "path": "packs/macros.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        },
+        {
+            "name": "backgrounds",
+            "label": "Backgrounds (Supplemental)",
+            "type": "Item",
+            "system": "dnd5e",
+            "path": "packs/backgrounds.db",
+            "entity": "Item",
+            "module": "additional-dnd5e-resources"
+        }
+    ],
+    "id": "additional-dnd5e-resources",
+    "authors": [
+        {
+            "name": "blk"
+        }
+    ],
+    "minimumCoreVersion": "0.8.0",
+    "compatibleCoreVersion": "9",
+    "compatibility": {
+        "minimum": 11,
+        "verified": 11
+    },
+    "version": "1.0.0",
+    "url": "https://github.com/flyingsquad/flying-squad",
+    "manifest": "https://raw.githubusercontent.com/flyingsquad/additional-dnd5e-resources/main/module.json",
+    "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.0.0.zip"
+}

@@ -1,0 +1,9 @@
+# 
+*.lock
+*.scc
+.gitattributes
+*.log
+LOCK
+LOG
+CURRENT
+*.old
