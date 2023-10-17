@@ -5,5 +5,4 @@
 *.log
 LOCK
 LOG
-CURRENT
 *.old
