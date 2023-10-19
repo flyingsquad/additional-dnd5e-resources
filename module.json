@@ -143,8 +143,8 @@
         "minimum": 11,
         "verified": 11
     },
-    "version": "1.0.7",
+    "version": "1.0.8",
     "url": "https://github.com/flyingsquad/flying-squad",
     "manifest": "https://raw.githubusercontent.com/flyingsquad/additional-dnd5e-resources/main/module.json",
-    "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.0.7.zip"
+    "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.0.8.zip"
 }
