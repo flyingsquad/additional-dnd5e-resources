@@ -1,0 +1,321 @@
+{
+	"subraces": [
+		{
+			"name": "Dark Elf",
+			"race": "Elf",
+			"abilities": {
+				"description": "Your Charisma score increases by 1.",
+				"Charisma": 1
+			},
+			"weapons": [
+				{"name": "rapier"},
+				{"name": "handcrossbow"},
+				{"name": "shortsword"}
+			],
+			"darkvision": 120,
+			"spells": [
+				{
+					"name": "Dancing Lights",
+					"uuid": "Compendium.dnd5e.spells.Item.CAxSzHWizrafT033",
+					"ability": "cha"
+				},
+				{
+					"advancement": {
+						"type": "character",
+						"level": 3
+					},
+					"name": "Faerie Fire",
+					"uuid":"Compendium.additional-dnd5e-resources.races.Item.iMLx644RBsxpmsM2",
+					"ability": "cha"
+				},
+				{
+					"advancement": {
+						"type": "character",
+						"level": 5
+					},
+					"name": "Darkness",
+					"uuid": "",
+					"ability": "cha"
+				}
+			]
+		},
+		{
+			"name": "Wood Elf",
+			"race": "Elf",
+			"abilities": {
+				"description": "Your Wisdom score increases by 1.",
+				"Wisdom": 1
+			},
+			"weapons": [
+				{"name": "longsword"},
+				{"name": "longbow"},
+				{"name": "shortbow"},
+				{"name": "shortsword"}
+			],
+			"features": [
+				{"name": "Fleet of Foot", "uuid":"Compendium.additional-dnd5e-resources.features.Item.6AskxPm6VGK60U0N"},
+				{"name": "Mask of the Wild", "uuid": "Compendium.additional-dnd5e-resources.features.Item.YjWF2sifW2lZXt0b"}
+			]
+		},
+		{
+			"name": "Stout Halfling",
+			"race": "Halfling",
+			"abilities": {
+				"description": "Your Constitution score increases by 1.",
+				"Constitution": 1
+			},
+			"features": [
+				{"name": "Stout Resilience", "uuid": "Compendium.additional-dnd5e-resources.features.Item.QPXyVxYMqblAbtVH"}
+			]
+		}
+		
+	],
+	"backgrounds": [
+		{
+			"name": "Charlatan",
+			"skills": [
+				{"name": "dec"},
+				{"name": "slt"}
+			],
+			"tools": [
+				{"name": "disguise"},
+				{"name": "forgery"}
+			]
+		},
+		{
+			"name": "Criminal",
+			"skills": [
+				{"name": "dec"},
+				{"name": "slt"}
+			],
+			"tools": [
+				{"name": "thieves"},
+				{"choose": 1, "category": "gaming"}
+			]
+		},
+		{
+			"name": "Entertainer",
+			"skills": [
+				{"name": "acr"},
+				{"name": "prf"}
+			],
+			"tools": [
+				{"name": "disguise"},
+				{"choose": 1, "category": "instrument"}
+			]
+		},
+		{
+			"name": "Folk Hero",
+			"skills": [
+				{"name": "ani"},
+				{"name": "sur"}
+			],
+			"tools": [
+				{"name": "artisan"},
+				{"name": "landvehicle"}
+			]
+		},
+		{
+			"name": "Guild Artisan",
+			"skills": [
+				{"name": "ins"},
+				{"name": "per"}
+			],
+			"tools": [
+				{"name": "artisan"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Hermit",
+			"skills": [
+				{"name": "med"},
+				{"name": "rel"}
+			],
+			"tools": [
+				{"name": "herbalism"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Knight",
+			"skills": [
+				{"name": "his"},
+				{"name": "per"}
+			],
+			"tools": [
+				{"choose": 1, "category": "gaming"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Noble",
+			"skills": [
+				{"name": "his"},
+				{"name": "per"}
+			],
+			"tools": [
+				{"choose": 1, "category": "gaming"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Outlander",
+			"skills": [
+				{"name": "ath"},
+				{"name": "sur"}
+			],
+			"tools": [
+				{"choose": 1, "category": "instrument"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Pirate",
+			"skills": [
+				{"name": "ath"},
+				{"name": "prc"}
+			],
+			"tools": [
+				{"name": "navigator"},
+				{"name": "watervehicle"}
+			]
+		},
+		{
+			"name": "Sage",
+			"skills": [
+				{"name": "arc"},
+				{"name": "his"}
+			],
+			"languages": [
+				{"choose": 2}
+			]
+		},
+		{
+			"name": "Sailor",
+			"skills": [
+				{"name": "ath"},
+				{"name": "prc"}
+			],
+			"tools": [
+				{"name": "navigator"},
+				{"name": "watervehicle"}
+			]
+		},
+		{
+			"name": "Soldier",
+			"skills": [
+				{"name": "ath"},
+				{"name": "itm"}
+			],
+			"tools": [
+				{"choose": 1, "category": "gaming"},
+				{"name": "landvehicle"}
+			]
+		}
+	],
+	"classes": [
+	],
+	"subclasses": [
+		{
+			"name": "Forge Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "Light Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "Knowledge Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "Nature Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "Tempest Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "Trickery Domain",
+			"class": "Cleric"
+		},
+		{
+			"name": "War Domain",
+			"class": "Cleric"
+		},
+
+		{
+			"name": "Battle Master",
+			"class": "Fighter"
+		},
+		{
+			"name": "Eldritch Knight",
+			"class": "Fighter"
+		},
+		{
+			"name": "Rune Knight",
+			"class": "Fighter"
+		},
+
+		{
+			"name": "School of Abjuration",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Conjuration",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Divination",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Enchantment",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Illusion",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Necromancy",
+			"class": "Wizard"
+		},
+		{
+			"name": "School of Transmutation",
+			"class": "Wizard"
+		}
+		
+	],
+	"spells": [
+		{
+			"level": "cantrip",
+			"spells": [
+				"Blade Ward"
+			]
+		},
+		{
+			"level": 1,
+			"spells": [
+			]
+		},
+		{
+			"class": "wizard",
+			"spells": [
+				"Blade Ward"
+			]
+		}
+	]
+}
