@@ -1,0 +1,80 @@
+{
+	"backgrounds": [
+		{
+			"name": "Artist",
+			"skills": [
+				{"name": "prc"}
+			],
+			"tools": [
+				{"name": "calligrapher"},
+				{"name": "painter"}
+			]
+		},
+		{
+			"name": "Bounty Hunter",
+			"languages": [
+				{"choose": 1}
+			],
+			"skills": [
+				{"choose": 2, "options": ["dec", "itm", "prc", "sur"]}
+			],
+			"tools": [
+				{"name": "thief"}
+			]
+		},
+		{
+			"name": "City Watch",
+			"languages": [
+				{"choose": 1}
+			],
+			"skills": [
+				{"name": "ath"},
+				{"name": "ins"}
+			]
+		},
+		{
+			"name": "Informant",
+			"skills": [
+				{"name": "dec"},
+				{"name": "ste"}
+			],
+			"tools": [
+				{"name": "thief"}
+			]
+		},
+		{
+			"name": "Locksmith",
+			"skills": [
+				{"name": "inv"},
+				{"name": "prc"}
+			],
+			"tools": [
+				{"name": "thief"},
+				{"name": "tinker"}
+			]
+		},
+		{
+			"name": "Merchant",
+			"skills": [
+				{"name": "ins"},
+				{"name": "per"}
+			],
+			"languages": [
+				{"choose": 1}
+			]
+		},
+		{
+			"name": "Private Investigator",
+			"skills": [
+				{"name": "ins"},
+				{"name": "inv"}
+			],
+			"languages": [
+				{"choose": 1}
+			],
+			"tools": [
+				{"name": "thief"}
+			]
+		}
+	]
+}
