@@ -4,7 +4,7 @@
     "author": "blk",
     "description": "Supplemental classes, features, monsters, etc., that don't appear in the SRD",
 	"esmodules": [
-		"text-enrich.js"
+		"text-enrich.js", "macros/spells.js"
 	],
     "packs": [
         {
