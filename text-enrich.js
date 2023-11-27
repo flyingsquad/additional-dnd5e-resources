@@ -15,13 +15,13 @@ CONFIG.TextEditor.enrichers.push(
 
             const scene = game.scenes.get(id);
             const doc = document.createElement("span");
-            const myData = `<a class="control viewscene" data-scene-id="${id}" data-tooltip="View scene" aria-describedby="tooltip"><b>${scene?.name}</b></a>`;
+            const myData = `<a class="control myscene" data-scene-id="${id}" data-tooltip="View scene" aria-describedby="tooltip"><b>${scene?.name}</b></a>`;
             doc.innerHTML = myData;
             return doc;
         }
     });
 
-    $(document).on("click", ".viewscene", activateScene);
+    $(document).on("click", ".myscene", viewScene);
 });
 
 Hooks.once('init', async function() {

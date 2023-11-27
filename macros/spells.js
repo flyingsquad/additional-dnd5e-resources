@@ -3,6 +3,7 @@ export class CastSpells {
 
 	async magicMissile(args) {
 		try {
+
 			function count(html) {
 				let total = 0;
 				let selected_targets = html.find('input#target');
@@ -43,7 +44,7 @@ export class CastSpells {
 				new MidiQOL.DamageOnlyWorkflow(actor, token, damageRoll.total, "force", target ? [target] : [], damageRoll, {flavor: "Magic Missile - Damage Roll (Force)", itemCardId: args[0].itemCardId});
 				return;
 			}
-			
+
 			level += 2;
 
 			let targetList = "";
@@ -65,12 +66,26 @@ export class CastSpells {
 					damage: {
 						label: "Damage", callback: async (html) => {
 							let spentTotal = 0;
-							let missiles = {};
+							let missiles = [];
 							let selected_targets = html.find('input#target');
+							let i = 0;
 							for (let get_total of selected_targets) {
+								let cardId;
 								if (get_total.checked) {
 									spentTotal += Number(get_total.value);
-									missiles[get_total.name] = Number(get_total.value);
+									if (i++ == 0) {
+										cardId = args[0].itemCardId;
+									} else {
+										let msgData = {
+											speaker: ChatMessage.getSpeaker({token: actor}),
+											type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+											content:``
+										};
+										//let msg = await ChatMessage.create(msgData, {chatBubble: false});
+										//cardId = msg._id;
+										cardId = "";
+									}
+									missiles.push({nbolts: Number(get_total.value), cardId: cardId});
 								}
 							}
 							if (spentTotal > level)
@@ -79,13 +94,13 @@ export class CastSpells {
 								return ui.notifications.error(`No bolts spent.`);
 							let damage_target = [];
 
-							let i = 0;
+							i = 0;
 							for (let selected_target in missiles) {
-								let damageNum = missiles[selected_target];
+								let damageNum = missiles[i].nbolts;
 								if (damageNum) {
 									let target = await fromUuid(args[0].hitTargetUuids[i] ?? "");
 									let damageRoll = await new Roll(`${damageNum}d4+${damageNum}${empowered}`).roll({async: true});
-									await new MidiQOL.DamageOnlyWorkflow(actor, token, damageRoll.total, "force", target ? [target] : [], damageRoll, {flavor: "Magic Missile - Damage Roll (Force)", itemCardId: args[0].itemCardId});
+									await new MidiQOL.DamageOnlyWorkflow(actor, token, damageRoll.total, "force", target ? [target] : [], damageRoll, {flavor: "Magic Missile - Damage Roll (Force)", itemCardId: missiles[i].cardId});
 									i++;
 								}
 							}
