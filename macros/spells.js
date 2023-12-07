@@ -138,6 +138,7 @@ export class CastSpells {
 				"system.properties.mgc": true,
 				"system.attackBonus": attBonus,
 				"system.proficient": false,
+				"system.range": { "value": 5, "units": "ft"},
 				"system.damage.parts":[[`${1 + Math.floor((args[0].spellLevel-2)/2)}d8 + ${args[0].actor.system.abilities[args[0].actor.system.attributes.spellcasting]?.mod || ""}`,"force"]]
 			  }
 			}
@@ -179,6 +180,7 @@ export class CastSpells {
 				"img": args[0].itemData.img, 
 				"system.actionType" : "save",
 				"system.activation.type": "action",
+				"system.range": { "value": 5, "units": "ft"},
 				"system.properties.mgc": true,
 				"system.save": {"ability": "dex", "dc": dc, "scaling": "flat"},
 				"system.proficient": false,
