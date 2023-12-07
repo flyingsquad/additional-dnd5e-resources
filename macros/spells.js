@@ -207,6 +207,52 @@ export class CastSpells {
 		}
 	}
 
+	async arcaneHand(actor, args) {
+		try {
+		  const origin = args[0].itemUuid;
+		  if (origin) {
+			  const removeList = actor.effects.filter(ae => ae.origin === origin && getProperty(ae, "flags.dae.transfer") !== 3).map(ae=>ae.id);
+			  await actor.deleteEmbeddedDocuments("ActiveEffect", removeList)
+		  }
+		  const spellAbil = actor.system.attributes.spellcasting;
+		  const spellMod = Number(actor.system.abilities[spellAbil].mod);
+		  const prof = Number(actor.system.attributes.prof);
+		  const dc = 8 + spellMod + prof;
+
+		  const result = await warpgate.spawn("Arcane Hand",  {}, {}, {});
+		  if (result.length !== 1) return;
+		  const createdToken = game.canvas.tokens.get(result[0]);
+
+		  let crs = [];
+		  crs[3] = 5;
+		  crs[4] = 9;
+		  crs[5] = 13;
+		  crs[6] = 17;
+
+		  await createdToken.actor.update({"system.abilities.int": actor.system.abilities.int});
+		  const hp = actor.system.attributes.hp.max;
+		  await createdToken.actor.update({"system.attributes.hp.value": hp});
+		  await createdToken.actor.update({"system.attributes.hp.max": hp});
+		  await createdToken.actor.update({"system.details.cr": crs[actor.system.attributes.prof]});
+
+		  let updates = [{_id: createdToken.id, name: `${actor.name}'s Hand`}];
+		  canvas.scene.updateEmbeddedDocuments("Token", updates);
+
+		  const targetUuid = createdToken.document.uuid;
+
+		  await actor.createEmbeddedDocuments("ActiveEffect", [{
+			  name: "Summon", 
+			  icon: args[0].item.img, 
+			  origin,
+			  duration: {seconds: 60, rounds:10},
+			  "flags.dae.stackable": false,
+			  changes: [{key: "flags.dae.deleteUuid", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: [targetUuid]}]
+		  }]);
+		} catch (err) {
+			console.error(`${args[0].itemData.name} - Arcane Hand`, err);
+		}
+	}
+
 }
 
 Hooks.once('init', async function () {
