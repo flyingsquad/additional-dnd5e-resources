@@ -115,6 +115,96 @@ export class CastSpells {
 			console.error(`${args[0].itemData.name} - Magic Missile ${this.version}`, err);
 		}
 	}
+	
+	async spiritualWeapon(actor, args) {
+		try {
+		  const origin = args[0].itemUuid;
+		  if (origin) {
+			  const removeList = actor.effects.filter(ae => ae.origin === origin && getProperty(ae, "flags.dae.transfer") !== 3).map(ae=>ae.id);
+			  await actor.deleteEmbeddedDocuments("ActiveEffect", removeList)
+		  }
+		  const spellAbil = actor.system.attributes.spellcasting;
+		  const spellMod = Number(actor.system.abilities[spellAbil].mod);
+		  const prof = Number(actor.system.attributes.prof);
+		  const spellAtt = Number(actor.system.bonuses.msak.attack);
+		  const attBonus = spellMod + prof + spellAtt;
+		  const updates = {
+			  Item: {
+			  "Spiritual Weapon Attack": {
+				"type": "weapon",
+				"img": args[0].itemData.img, 
+				"system.actionType" : "msak",
+				"system.activation.type": "action",
+				"system.properties.mgc": true,
+				"system.attackBonus": attBonus,
+				"system.proficient": false,
+				"system.damage.parts":[[`${1 + Math.floor((args[0].spellLevel-2)/2)}d8 + ${args[0].actor.system.abilities[args[0].actor.system.attributes.spellcasting]?.mod || ""}`,"force"]]
+			  }
+			}
+		  }
+		  const result = await warpgate.spawn("Spiritual Weapon",  {embedded: updates}, {}, {});
+		  if (result.length !== 1) return;
+		  const createdToken = game.canvas.tokens.get(result[0]);
+		  await createdToken.actor.items.getName("Spiritual Weapon Attack").update({"data.proficient": false});
+		  const targetUuid = createdToken.document.uuid;
+
+		  await actor.createEmbeddedDocuments("ActiveEffect", [{
+			  name: "Summon", 
+			  icon: args[0].item.img, 
+			  origin,
+			  duration: {seconds: 60, rounds:10},
+			  "flags.dae.stackable": false,
+			  changes: [{key: "flags.dae.deleteUuid", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: [targetUuid]}]
+		  }]);
+		} catch (err) {
+			console.error(`${args[0].itemData.name} - Spiritual Weapon ${version}`, err);
+		}
+	}
+
+	async flamingSphere(actor, args) {
+		try {
+		  const origin = args[0].itemUuid;
+		  if (origin) {
+			  const removeList = actor.effects.filter(ae => ae.origin === origin && getProperty(ae, "flags.dae.transfer") !== 3).map(ae=>ae.id);
+			  await actor.deleteEmbeddedDocuments("ActiveEffect", removeList)
+		  }
+		  const spellAbil = actor.system.attributes.spellcasting;
+		  const spellMod = Number(actor.system.abilities[spellAbil].mod);
+		  const prof = Number(actor.system.attributes.prof);
+		  const dc = 8 + spellMod + prof;
+		  const updates = {
+			  Item: {
+			  "Flaming Sphere Attack": {
+				"type": "weapon",
+				"img": args[0].itemData.img, 
+				"system.actionType" : "save",
+				"system.activation.type": "action",
+				"system.properties.mgc": true,
+				"system.save": {"ability": "dex", "dc": dc, "scaling": "flat"},
+				"system.proficient": false,
+				"system.damage.parts":[[`${2 + Math.floor((args[0].spellLevel-2))}d6`,"fire"]]
+			  }
+			}
+		  }
+		  const result = await warpgate.spawn("Flaming Sphere",  {embedded: updates}, {}, {});
+		  if (result.length !== 1) return;
+		  const createdToken = game.canvas.tokens.get(result[0]);
+		  await createdToken.actor.items.getName("Flaming Sphere Attack").update({"data.proficient": false});
+		  const targetUuid = createdToken.document.uuid;
+
+		  await actor.createEmbeddedDocuments("ActiveEffect", [{
+			  name: "Summon", 
+			  icon: args[0].item.img, 
+			  origin,
+			  duration: {seconds: 60, rounds:10},
+			  "flags.dae.stackable": false,
+			  changes: [{key: "flags.dae.deleteUuid", mode: CONST.ACTIVE_EFFECT_MODES.ADD, value: [targetUuid]}]
+		  }]);
+		} catch (err) {
+			console.error(`${args[0].itemData.name} - Flaming Sphere ${version}`, err);
+		}
+	}
+
 }
 
 Hooks.once('init', async function () {
