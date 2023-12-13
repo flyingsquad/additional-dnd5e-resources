@@ -253,6 +253,35 @@ export class CastSpells {
 		}
 	}
 
+	async savageAttacker(actor, args) {
+		const version = "10.0.10";
+		try {
+			if (args[0].macroPass === "preDamageRoll") {
+				const isCritical = args[0].attackD20 >= args[0].attackRoll.options.critical;
+				const theItem = await fromUuid(args[0].uuid);
+				let formula = theItem.system.damage.parts[0][0];
+				if (!theItem.flags.savageAttacker) {
+					theItem.flags['savageAttacker'] = {baseDamage: formula};
+				} else {
+					formula = theItem.flags.savageAttacker.baseDamage;
+				}
+				if (isCritical) {
+					let result = formula.match(/^[0-9]*/);
+					if (result[0] == "") {
+						formula = `max(2${formula},2${formula})`;
+					} else {
+						let critDmg = formula.replace(result[0], 2*parseInt(result[0]));
+						formula = `max(${critDmg},${critDmg})`;
+					}
+				} else {
+					formula = `max(${formula},${formula})`;
+				}
+				theItem.system.damage.parts[0][0] = formula;
+			}
+		} catch (err) {
+			console.error(`${args[0].itemData.name} - Savage Attacker ${version}`, err);
+		}	
+	}
 }
 
 Hooks.once('init', async function () {
