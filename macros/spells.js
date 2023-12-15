@@ -282,10 +282,126 @@ export class CastSpells {
 			console.error(`${args[0].itemData.name} - Savage Attacker ${version}`, err);
 		}	
 	}
+	
+	async test(actor, args) {
+		const version = "10.0.10";
+		try {
+			// See if feat already used this turn.
+			let flags = actor.flags['additional-dnd5e-resources']?.savageAttacker;
+			let lastRound = flags?.round;
+			let curRound = game?.combat?.round;
+			let cid = game?.combat?.id;
+
+			if (lastRound !== undefined && curRound !== undefined) {
+				// Don't ask if feat already used this turn.
+				if (cid == flags.cid && curRound <= lastRound)
+					return;
+			}
+			// Check if attack hit.
+			let wf = args[0].workflow;
+			if (!wf.damageRoll)
+				return;
+
+			let result = await Dialog.confirm({
+			  title: "Reroll damage?",
+			  content: `<p>Do you want to reroll damage for Savage Attacker?</p>
+				<p>Total: ${wf.damageRoll.total} = ${showDice(wf.damageRoll.terms)}</p>`,
+			  yes: (html) => { return true; },
+			  no: (html) => { return false; },
+			  close: () => { return false; }
+			});
+			if (result) {
+				await actor.setFlag('additional-dnd5e-resources', 'savageAttacker', {round: curRound, cid: cid});
+				let formula = wf.damageRoll._formula;
+				let r = new Roll(formula);
+				await r.evaluate();
+				let newDamage = r._total;
+//				ChatMessage.create({rolls: [r], content: `Roll: ${r.total} = ${showDice(r.terms)}`});
+				await r.toMessage({
+					rollMode: 'roll',
+					flavor: `Savage Attacker damage reroll`,
+					speaker: {alias: actor.name}
+				});
+				let extraDmg = r.total - wf.damageRoll.total;
+				if (extraDmg > 0) {
+					// Apply this new damage to the target.
+				}
+			}
+		} catch (err) {
+				console.error(`${args[0].itemData.name} - Longsword of Sharpness ${version}`, err);
+				return {}
+		}	
+	}
+
+	async savageAttackerFunc({speaker, actor, token, character, item, args, scope, workflow}) {
+		function showDice(terms) {
+			let string = '';
+			for (let i = 0; i < terms.length; i++) {
+				let term = terms[i];
+				if (term.faces) {
+					let plus = '';
+					for (let r = 0; r < term.number; r++) {
+						string += plus + term.results[r].result + '/' + term.faces;
+						plus = "+";
+					}
+				} else {
+					string += term.total;
+				}
+			}
+			return string;
+		}
+
+		if (workflow.hitTargets.size != 1 || workflow.item.system.actionType != 'mwak' || !workflow.token || !workflow.damageRoll) return;
+
+		let flags = actor.flags['additional-dnd5e-resources']?.savageAttacker;
+		let lastRound = flags?.round;
+		let curRound = game?.combat?.round;
+		let cid = game?.combat?.id;
+
+		if (lastRound !== undefined && curRound !== undefined) {
+			// Don't ask if feat already used this turn.
+			if (cid == flags.cid && curRound <= lastRound)
+				return;
+		}
+
+		await workflow.damageRoll.toMessage({
+			rollMode: 'roll',
+			flavor: `Initial Damage Roll`,
+			speaker: {alias: actor.name}
+		});
+
+		let result = await Dialog.confirm({
+		  title: "Reroll damage?",
+		  content: `<p>Do you want Savage Attacker to reroll damage?</p>
+			<p>Total: ${workflow.damageRoll.total} = ${showDice(workflow.damageRoll.terms)}</p>`,
+		  yes: (html) => { return true; },
+		  no: (html) => { return false; },
+		  close: () => { return false; }
+		});
+
+		if (result) {
+			await actor.setFlag('additional-dnd5e-resources', 'savageAttacker', {round: curRound, cid: cid});
+			let formula = workflow.damageRoll._formula;
+			let r = new Roll(formula);
+			await r.evaluate();
+			let newDamage = r._total;
+
+			await r.toMessage({
+				rollMode: 'roll',
+				flavor: `Savage Attacker damage reroll`,
+				speaker: {alias: actor.name}
+			});
+			if (r.total > workflow.damageRoll.total)
+			    await workflow.setDamageRoll(r);
+		}
+	}
 }
+
+
 
 Hooks.once('init', async function () {
 	if (!game.CastSpells) {
 		game.CastSpells = new CastSpells();
+		CONFIG.CastSpells = {savageAttacker: game.CastSpells.savageAttackerFunc};
 	}
 });
