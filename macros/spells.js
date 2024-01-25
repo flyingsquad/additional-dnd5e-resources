@@ -315,8 +315,100 @@ export class CastSpells {
 			    await workflow.setDamageRoll(r);
 		}
 	}
+
+	async castHex(actor, args) {
+		let targets = Array.from(game.user.targets);
+
+		if (targets.length != 1) {
+			ui.notification('Select exactly one target for Hex.');
+			return;
+		}
+
+		let hexedAbility = 'none';
+		
+		const contentHtml = `<p>Select the ability to be hexed:</p>
+        <div class="form-group">
+          <label for="hexedAbility">Ability</label>
+          <select name="hexedAbility">
+            <option value="Strength">Strength</option>
+            <option value="Dexterity">Dexterity</option>
+            <option value="Constitution">Constitution</option>
+            <option value="Intelligence">Intelligence</option>
+            <option value="Wisdom">Wisdom</option>
+            <option value="Charisma">Charisma</option>
+          </select><br><br>
+        </div>`;
+
+		let result = await doDialog({
+			title: "Cast Hex",
+			content: contentHtml,
+			buttons: {
+				ok: {
+					label: "OK",
+					callback: async(html) => {
+						hexedAbility = html.find('[name="hexedAbility"]').val();
+						return true;
+					}
+				},
+				cancel: {
+					label: "Cancel",
+					callback: (html) => { return false; }
+				}
+			},
+			default: "ok",
+			close: () => { return false; }
+		}, "", {width: 600});
+		if (hexedAbility == "none")
+			return;
+
+		const uuid = targets[0].actor.uuid;
+		const hexEffect = `${hexedAbility} Hex`;
+
+		const hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(hexEffect, uuid);
+
+		if (!hasEffectApplied) {
+			await game.dfreds.effectInterface.addEffect({ effectName: hexEffect, uuid });
+			await actor.setFlag('additional-dnd5e-resources', 'hexedAbility', hexedAbility);
+		}
+	}
+	
+	async transferHex(actor, args) {
+		let targets = Array.from(game.user.targets);
+
+		if (targets.length != 1) {
+			ui.notification('Select exactly one target for Hex.');
+			return;
+		}
+
+		let hexedAbility = actor.flags['additional-dnd5e-resources'].hexedAbility;
+		
+		if (!hexedAbility) {
+			ui.notification('No previous hexed ability.');
+			return;
+		}
+
+		const uuid = targets[0].actor.uuid;
+		const hexEffect = `${hexedAbility} Hex`;
+
+		const hasEffectApplied = await game.dfreds.effectInterface.hasEffectApplied(hexEffect, uuid);
+
+		if (!hasEffectApplied) {
+			game.dfreds.effectInterface.addEffect({ effectName: hexEffect, uuid });
+		}
+	}
+	
 }
 
+async function doDialog(dlg, msg, options) {
+	let result;
+	try {
+		result = await Dialog.wait(dlg, {}, options);
+	} catch (m) {
+		ui.notifications.warn(m);
+		return false;
+	}
+	return result;
+}
 
 
 Hooks.once('init', async function () {
