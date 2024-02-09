@@ -357,7 +357,7 @@ export class CastSpells {
 			},
 			default: "ok",
 			close: () => { return false; }
-		}, "", {width: 600});
+		}, "", {width: 400});
 		if (hexedAbility == "none")
 			return;
 
