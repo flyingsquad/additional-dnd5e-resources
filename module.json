@@ -159,6 +159,17 @@
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
       }
+    },
+    {
+      "name": "random-items-supplemental",
+      "label": "Random Items (Supplemental)",
+      "path": "packs/random-items-supplemental",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e"
     }
   ],
   "id": "additional-dnd5e-resources",
@@ -171,8 +182,8 @@
     "minimum": "11",
     "verified": "11"
   },
-  "version": "1.4.6",
-  "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.4.6.zip",
+  "version": "1.4.7",
+  "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.4.7.zip",
   "url": "https://github.com/flyingsquad/flying-squad",
   "manifest": "https://raw.githubusercontent.com/flyingsquad/additional-dnd5e-resources/main/module.json"
 }
