@@ -5,6 +5,18 @@
     "text-enrich.js",
     "macros/spells.js"
   ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "3.0.2",
+          "verified": "3.0.4"
+        }
+      }
+    ]
+  },
   "packs": [
     {
       "name": "monsters",
@@ -110,11 +122,7 @@
       "label": "Spells (Supplemental)",
       "path": "packs/spells",
       "type": "Item",
-      "system": "dnd5e",
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      }
+	  "module": "additional-dnd5e-resources"
     },
     {
       "name": "treasure",
@@ -182,8 +190,8 @@
     "minimum": "11",
     "verified": "11"
   },
-  "version": "1.5.8",
-  "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.5.8.zip",
+  "version": "1.5.9",
+  "download": "https://github.com/flyingsquad/additional-dnd5e-resources/archive/refs/tags/v1.5.9.zip",
   "url": "https://github.com/flyingsquad/flying-squad",
   "manifest": "https://raw.githubusercontent.com/flyingsquad/additional-dnd5e-resources/main/module.json"
 }
