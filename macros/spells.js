@@ -397,6 +397,10 @@ export class CastSpells {
 		}
 	}
 	
+	resetLegAct(actor) {
+		actor.update({ ["system.resources.legact.value"]: actor.system.resources.legact.max });
+	}
+	
 }
 
 async function doDialog(dlg, msg, options) {
