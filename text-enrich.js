@@ -261,7 +261,7 @@ CONFIG.TextEditor.enrichers.push(
 			}
 			
             const doc = document.createElement("span");
-            const myData = `<a class="control monkxp" data-xp="${xp}" data-divide="${divide}" data-tooltip="Award XP" aria-describedby="tooltip"><u>${xp} XP${split}</u></a>`;
+            const myData = `<a class="control monkxp" data-xp="${xp}" data-divide="${divide}" data-tooltip="Award XP" aria-describedby="tooltip"><i class="fa-solid fa-angles-up"></i>&nbsp;<u>${xp} XP${split}</u></a>`;
             doc.innerHTML = myData;
             return doc;
         }
