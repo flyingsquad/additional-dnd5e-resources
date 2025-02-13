@@ -401,6 +401,32 @@ export class CastSpells {
 		actor.update({ ["system.resources.legact.value"]: actor.system.resources.legact.max });
 	}
 	
+	async circleOfMortalityCure(workflow) {
+		if (workflow.hitTargets.size == 0)
+		  return;
+	  
+		let zeroHeal = 0;
+		let rolledHeal = 0;
+
+		for (let target of workflow.hitTargets) {
+			let healing = workflow.damageRolls[0]._total;
+			let targets = new Set();
+			targets.add(target);
+			await MidiQOL.applyTokenDamage(
+				[
+					{
+						'damage': healing,
+						'type': 'healing'
+					}
+				],
+				healing,
+				targets,
+				null,
+				null
+			);
+		}
+	}
+	
 }
 
 async function doDialog(dlg, msg, options) {
